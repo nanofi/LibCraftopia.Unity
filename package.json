@@ -1,0 +1,15 @@
+{
+  "name": "com.libcraftopia.unity",
+  "version": "0.1.0",
+  "displayName": "LibCraftopia Unity",
+  "description": "Unity package of LibCraftopia",
+  "unity": "2020.1",
+  "unityRelease": "3f1",
+  "dependencies": {
+    "com.unity.scriptablebuildpipeline": "1.7.3"
+  },
+  "author": {
+    "name": "nanofi",
+    "url": "https://github.com/nanofi/LibCraftopia.Unity/"
+  }
+}

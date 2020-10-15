@@ -1,0 +1,17 @@
+{
+    "name": "Unity.LibCraftopia.Editor",
+    "references": [
+        "GUID:1af5341da5815e14fa39eebc01c8a0af"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

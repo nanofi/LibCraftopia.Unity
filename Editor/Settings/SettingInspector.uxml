@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Label text="Main Game Path Information" />
+    <ui:TextField picking-mode="Ignore" label="Game Executable" name="gameExecutable" multiline="false" binding-path="GameExecutable" />
+    <ui:TextField picking-mode="Ignore" label="GameRoot" name="gameRoot" binding-path="GameRoot" />
+    <ui:Button text="Browse" name="gameBrowse" />
+    <ui:Label text="Mod Information" />
+    <ui:TextField picking-mode="Ignore" label="Mod&apos;s Assembly Name" value="ExampleMod" text="ExampleMod" name="modAssemblyName" binding-path="ModInformation.AssemblyName" />
+	<ui:TextField picking-mode="Ignore" label="GUID" value="com.example.ExampleMod" text="com.example.ExampleMod" name="guid" binding-path="ModInformation.GUID" />
+	<ui:TextField picking-mode="Ignore" label="Mod Name" value="Example Mod" text="Example Mod" name="modName" binding-path="ModInformation.Name" />
+    <ui:TextField picking-mode="Ignore" label="Author" value="Your name" text="Your name" name="author" binding-path="ModInformation.Author" />
+    <ui:TextField picking-mode="Ignore" label="Description" multiline="true" binding-path="ModInformation.Description" name="description" />
+    <ui:TextField picking-mode="Ignore" label="Version" value="1.0.0.0" text="1.0.0.0" name="version" binding-path="ModInformation.Version" />
+    <ui:Button text="Configure" name="configure" />
+</ui:UXML>
