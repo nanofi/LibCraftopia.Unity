@@ -48,4 +48,4 @@ Currently, you may see a lot of errors like `Could not delete file '*.dll'`. Don
 
 ## Changelog
 
-See [Changelog](Changelog.md)
+See [Changelog](CHANGELOG.md)
