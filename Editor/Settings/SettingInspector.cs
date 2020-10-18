@@ -19,7 +19,7 @@ namespace LibCraftopia.Unity.Editor.Settings
 
             root.Q<Button>("gameBrowse").clicked += () => browse(setting);
             root.Q<Button>("configure").clicked += () => configure(setting);
-
+            root.Q<Button>("build").clicked += () => configure(setting);
 
             root.Bind(new SerializedObject(setting));
             return root;
@@ -40,6 +40,11 @@ namespace LibCraftopia.Unity.Editor.Settings
             var pipeline = ConfigurationPipeline.CreateDefaultPipeline();
             pipeline.Parameters.Add("Setting", setting);
             pipeline.Execute();
+        }
+
+        private void build(Setting setting)
+        {
+            LibCraftopia.Unity.Editor.Build.BuildPipeline.Build(setting);
         }
     }
 }
