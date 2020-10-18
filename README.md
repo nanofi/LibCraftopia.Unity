@@ -2,7 +2,7 @@
 A unity package to support creating a Craftopia's mod based on LibCraftopia
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/nanofi/LibCraftopia.Unity)
-![GitHub](https://img.shields.io/github/license/nanofi/LibCraftopia.Unity)
+[![GitHub](https://img.shields.io/github/license/nanofi/LibCraftopia.Unity)](LICENSE.md)
 
 ## Requirements
 
