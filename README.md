@@ -17,7 +17,30 @@ https://github.com/nanofi/LibCraftopia.Unity.git
 
 ## Usage
 
-After installing this package, you can see the `LibCraftopia` in the menu bar. Click `LibCraftopia/Initiate` first. Then, you can see the `LibCraftopia` asset in `Assets` folder. You can configure this package via the inspector of the `LibCraftopia` asset.
+After installing this package, you can see the `LibCraftopia` in the menu bar. Click `LibCraftopia/Initiate` first. Then, you can see the `LibCraftopia` asset in `Assets` folder. You can configure this package via the inspector of the `LibCraftopia` asset. List this package's configurations:
+
+## Main Game Path Information
+
+Set the location where Craftopia is installed. This settings can be filled automatically by clicking the `Browse` button and then choosing `Craftopia.exe` file.
+
+## Mod Information
+
+Settings about your mod. 
+- Mod's assembly name: The name of your mod's `*.dll` file. MUST BE alphabetic and numeric characters without space.
+- GUID: Unique id for your mod. 
+- Mod Name: Your mod's name.
+- Author: Your name.
+- Description: The description of your mod.
+- Version: Your mod's version. MUST BE formed as `[0-9]+.[0-9]+.[0-9]+.[0-9]+`.
+
+After filling in this information, click `Configure` button. This will generate `Source` folder with some necessary files in it. You must place your mod's scripts in here.
+
+## Build Information
+
+Setting used for building your mod.
+- Target: Build target. MUST BE `Standalone Windows 64`.
+- Target Group: Build target group. MUST BE `Standalone`.
+- Output Path: The directory path to output the built contents. Either relative path from your project root or Absolute path.
 
 ## Remark
 
