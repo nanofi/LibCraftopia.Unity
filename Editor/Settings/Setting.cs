@@ -15,6 +15,14 @@ namespace LibCraftopia.Unity.Editor.Settings
         public string Version;
     }
 
+    [Serializable]
+    public struct BuildInfo
+    {
+        public BuildTarget Target;
+        public BuildTargetGroup TargetGroup;
+        public string OutputPath;
+    }
+
     public class Setting : ScriptableObject
     {
         public const string PATH = "Assets/LibCraftopia.asset";
@@ -22,9 +30,25 @@ namespace LibCraftopia.Unity.Editor.Settings
         public string GameExecutable = string.Empty;
         public string GameRoot = string.Empty;
 
+
         public ModInformation ModInformation;
+        public BuildInfo BuildInfo;
 
         public static Setting Inst => AssetDatabase.LoadAssetAtPath<Setting>(PATH);
+
+        public void SetDefaults()
+        {
+            ModInformation.AssemblyName = "ExampleMod";
+            ModInformation.GUID = "com.example.ExampleMod";
+            ModInformation.Name = "Example Mod";
+            ModInformation.Author = "Your name";
+            ModInformation.Description = "Description of this mod";
+            ModInformation.Version = "1.0.0.0";
+
+            BuildInfo.Target = BuildTarget.StandaloneWindows64;
+            BuildInfo.TargetGroup = BuildTargetGroup.Standalone;
+            BuildInfo.OutputPath = "Build";
+        }
 
         public static Setting Create()
         {
@@ -32,6 +56,8 @@ namespace LibCraftopia.Unity.Editor.Settings
             if (inst == null)
             {
                 inst = CreateInstance<Setting>();
+                inst.SetDefaults();
+
                 AssetDatabase.CreateAsset(inst, PATH);
                 AssetDatabase.SaveAssets();
             }

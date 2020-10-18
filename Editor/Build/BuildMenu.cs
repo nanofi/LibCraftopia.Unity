@@ -1,4 +1,7 @@
+using LibCraftopia.Unity.Editor.Settings;
+using System.IO;
 using UnityEditor;
+using UnityEngine;
 
 namespace LibCraftopia.Unity.Editor.Build
 {
@@ -7,7 +10,7 @@ namespace LibCraftopia.Unity.Editor.Build
         [MenuItem("LibCraftopia/Build")]
         private static void Build()
         {
-
+            BuildPipeline.Build(Setting.Inst);
         }
     }
 }

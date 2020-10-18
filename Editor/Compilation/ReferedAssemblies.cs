@@ -44,7 +44,7 @@ namespace LibCraftopia.Unity.Editor.Compilation
         {
             var targetDir = Path.GetFullPath(Path.Combine(Application.dataPath, "..", Path.GetDirectoryName(outputPath)));
             var setting = Setting.Inst;
-            if (setting?.IsTargetAssembly(Path.GetFileNameWithoutExtension(outputPath)) ?? false)
+            if (setting && setting.IsTargetAssembly(Path.GetFileNameWithoutExtension(outputPath)))
             {
                 var bepinCoreDir = Path.Combine(setting.GameRoot, "BepInEx", "core");
                 var managedDir = Path.Combine(setting.GameRoot, $"{Path.GetFileNameWithoutExtension(setting.GameExecutable)}_Data", "Managed");

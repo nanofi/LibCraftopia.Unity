@@ -16,11 +16,12 @@ namespace LibCraftopia.Unity.Editor.Settings
             var root = new VisualElement();
             var tree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Packages/com.libcraftopia.unity/Editor/Settings/SettingInspector.uxml");
             tree.CloneTree(root);
-            root.Bind(new SerializedObject(setting));
 
             root.Q<Button>("gameBrowse").clicked += () => browse(setting);
             root.Q<Button>("configure").clicked += () => configure(setting);
 
+
+            root.Bind(new SerializedObject(setting));
             return root;
         }
 

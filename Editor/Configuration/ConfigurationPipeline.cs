@@ -18,6 +18,7 @@ namespace LibCraftopia.Unity.Editor.Configuration
             pipeline.Add(new GenerateAsmdef());
             pipeline.Add(new GenerateRes());
             pipeline.Add(new GenerateBasePluginCs());
+            pipeline.Add(new GenerateAsmInfo());
             pipeline.Add(new RefreshAsset());
             return pipeline;
         }
@@ -32,7 +33,7 @@ namespace LibCraftopia.Unity.Editor.Configuration
                     var name = kv.Key;
                     var value = kv.Value;
                     var field = taskType.GetField(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                    if (field.FieldType.IsAssignableFrom(value.GetType()))
+                    if (field != null && field.FieldType.IsAssignableFrom(value.GetType()))
                     {
                         field.SetValue(task, value);
                     }
