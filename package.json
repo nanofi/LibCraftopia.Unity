@@ -1,6 +1,6 @@
 {
   "name": "com.libcraftopia.unity",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "LibCraftopia Unity",
   "description": "Unity package of LibCraftopia",
   "unity": "2020.1",

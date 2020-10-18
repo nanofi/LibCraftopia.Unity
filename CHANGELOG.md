@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/nanofi/LibCraftopia.Unity/compare/v0.1.0...v0.1.1) (2020-10-18)
+
+
+### Bug Fixes
+
+* make the build button in the setting inspector workable ([6e8e623](https://github.com/nanofi/LibCraftopia.Unity/commit/6e8e6230e4deba5570423183e7ff760f8099ae14))
+
 ## 0.1.0 (2020-10-18)
 
 
