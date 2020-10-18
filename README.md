@@ -31,7 +31,7 @@ Settings about your mod.
 - Mod Name: Your mod's name.
 - Author: Your name.
 - Description: The description of your mod.
-- Version: Your mod's version. MUST BE formed as `[0-9]+.[0-9]+.[0-9]+.[0-9]+`.
+- Version: Your mod's version. MUST consist of four numbers separated by dots `.`; such as `1.0.0.0`.
 
 After filling in this information, click `Configure` button. This will generate `Source` folder with some necessary files in it. You must place your mod's scripts in here.
 
