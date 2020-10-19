@@ -10,9 +10,13 @@
     <ui:TextField picking-mode="Ignore" label="Author" value="Your name" text="Your name" name="author" binding-path="ModInformation.Author" />
     <ui:TextField picking-mode="Ignore" label="Description" multiline="true" binding-path="ModInformation.Description" name="description" />
     <ui:TextField picking-mode="Ignore" label="Version" value="1.0.0.0" text="1.0.0.0" name="version" binding-path="ModInformation.Version" />
+    <ui:Foldout text="Dependences">
+        <ui:Toggle label="LibCraftopia" binding-path="Dependences.IsDependentLibCraftopia" />
+        <ui:Toggle label="LibCraftopia.Chat" binding-path="Dependences.IsDependentLibCraftopiaChat" />
+    </ui:Foldout>
     <ui:Button text="Configure" name="configure" />
     <ui:Label text="Build Information" />
-    <uie:EnumField label="Target" binding-path="BuildInfo.Target" type="UnityEditor.BuildTarget, UnityEditor" value="StandaloneWindows" />
+    <uie:EnumField label="Target" binding-path="BuildInfo.Target" type="UnityEditor.BuildTarget, UnityEditor" value="StandaloneWindows" focusable="true" />
     <uie:EnumField label="Target Group" binding-path="BuildInfo.TargetGroup" type="UnityEditor.BuildTargetGroup, UnityEditor" value="Standalone" />
     <ui:TextField picking-mode="Ignore" label="Output Path" binding-path="BuildInfo.OutputPath" />
     <ui:Button text="Build" name="build" />

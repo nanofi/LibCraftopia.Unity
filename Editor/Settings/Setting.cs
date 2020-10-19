@@ -16,6 +16,13 @@ namespace LibCraftopia.Unity.Editor.Settings
     }
 
     [Serializable]
+    public struct Dependences
+    {
+        public bool IsDependentLibCraftopia;
+        public bool IsDependentLibCraftopiaChat;
+    }
+
+    [Serializable]
     public struct BuildInfo
     {
         public BuildTarget Target;
@@ -32,6 +39,7 @@ namespace LibCraftopia.Unity.Editor.Settings
 
 
         public ModInformation ModInformation;
+        public Dependences Dependences;
         public BuildInfo BuildInfo;
 
         public static Setting Inst => AssetDatabase.LoadAssetAtPath<Setting>(PATH);
@@ -44,6 +52,9 @@ namespace LibCraftopia.Unity.Editor.Settings
             ModInformation.Author = "Your name";
             ModInformation.Description = "Description of this mod";
             ModInformation.Version = "1.0.0.0";
+
+            Dependences.IsDependentLibCraftopia = false;
+            Dependences.IsDependentLibCraftopiaChat = false;
 
             BuildInfo.Target = BuildTarget.StandaloneWindows64;
             BuildInfo.TargetGroup = BuildTargetGroup.Standalone;
