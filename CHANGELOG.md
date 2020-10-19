@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/nanofi/LibCraftopia.Unity/compare/v0.1.1...v0.1.2) (2020-10-19)
+
+
+### Bug Fixes
+
+* fix the build button in the setting inspector ([7bba2c3](https://github.com/nanofi/LibCraftopia.Unity/commit/7bba2c3125eea7de5c765c084897994adaaa58d3))
+* fix the PackAssembly task's bug where it copies to non-existant directory ([c7d987f](https://github.com/nanofi/LibCraftopia.Unity/commit/c7d987f09152c1ba5f6366e1491405637ac198f8))
+
 ### [0.1.1](https://github.com/nanofi/LibCraftopia.Unity/compare/v0.1.0...v0.1.1) (2020-10-18)
 
 
