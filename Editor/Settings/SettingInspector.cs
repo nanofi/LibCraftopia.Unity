@@ -19,7 +19,7 @@ namespace LibCraftopia.Unity.Editor.Settings
 
             root.Q<Button>("gameBrowse").clicked += () => browse(setting);
             root.Q<Button>("configure").clicked += () => configure(setting);
-            root.Q<Button>("build").clicked += () => configure(setting);
+            root.Q<Button>("build").clicked += () => build(setting);
 
             root.Bind(new SerializedObject(setting));
             return root;
