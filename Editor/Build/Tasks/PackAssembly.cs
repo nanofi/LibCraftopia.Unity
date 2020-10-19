@@ -32,6 +32,7 @@ namespace LibCraftopia.Unity.Editor.Build.Tasks
                 try
                 {
                     var target = parameters.GetOutputFilePathForIdentifier(filename);
+                    Directory.CreateDirectory(Path.GetDirectoryName(target));
                     File.Copy(path, target);
                 }
                 catch (Exception e)
