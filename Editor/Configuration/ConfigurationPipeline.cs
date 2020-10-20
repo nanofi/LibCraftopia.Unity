@@ -15,6 +15,7 @@ namespace LibCraftopia.Unity.Editor.Configuration
         public static ConfigurationPipeline CreateDefaultPipeline()
         {
             var pipeline = new ConfigurationPipeline();
+            pipeline.Add(new ResolveDependence());
             pipeline.Add(new GenerateAsmdef());
             pipeline.Add(new GenerateRes());
             pipeline.Add(new GenerateBasePluginCs());
