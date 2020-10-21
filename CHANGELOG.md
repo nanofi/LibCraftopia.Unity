@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/nanofi/LibCraftopia.Unity/compare/v0.1.2...v0.1.3) (2020-10-21)
+
+
+### Features
+
+* automatic download options for LibCraftopia ([cab8d41](https://github.com/nanofi/LibCraftopia.Unity/commit/cab8d410a0f6c07be61c944472d654a1e9b129b0)), closes [#1](https://github.com/nanofi/LibCraftopia.Unity/issues/1) [#2](https://github.com/nanofi/LibCraftopia.Unity/issues/2)
+
+
+### Bug Fixes
+
+* fix error in PackAssembly ([20e9733](https://github.com/nanofi/LibCraftopia.Unity/commit/20e973307fc2a46e150fa3c8a7f29419ff7924a1))
+
 ### [0.1.2](https://github.com/nanofi/LibCraftopia.Unity/compare/v0.1.1...v0.1.2) (2020-10-19)
 
 
