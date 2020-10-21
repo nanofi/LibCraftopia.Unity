@@ -14,10 +14,13 @@ namespace LibCraftopia.Unity.Editor.Compilation
     public static class ReferedAssemblies
     {
         public static readonly string[] RequiredAssemblies = new[] { "BepInEx.dll", "UnityEngine.dll", "UnityEngine.CoreModule.dll", "0Harmony.dll", "BepInEx.Harmony.dll", "Assembly-CSharp.dll" };
+        public static readonly string ExternalAssemblyBase;
 
         static ReferedAssemblies()
         {
+            CompilationPipeline.assemblyCompilationFinished -= OnAssembliesCompilationFinished;
             CompilationPipeline.assemblyCompilationFinished += OnAssembliesCompilationFinished;
+            ExternalAssemblyBase = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Library", "ExternalAssemblies"));
         }
 
         public static IEnumerable<string> GetAssemblies(Setting setting)
@@ -44,11 +47,11 @@ namespace LibCraftopia.Unity.Editor.Compilation
         {
             var targetDir = Path.GetFullPath(Path.Combine(Application.dataPath, "..", Path.GetDirectoryName(outputPath)));
             var setting = Setting.Inst;
-            if (setting && setting.IsTargetAssembly(Path.GetFileNameWithoutExtension(outputPath)))
+            if (setting)
             {
                 var bepinCoreDir = Path.Combine(setting.GameRoot, "BepInEx", "core");
                 var managedDir = Path.Combine(setting.GameRoot, $"{Path.GetFileNameWithoutExtension(setting.GameExecutable)}_Data", "Managed");
-                var assemblies = Directory.EnumerateFiles(bepinCoreDir, "*.dll").Concat(Directory.EnumerateFiles(managedDir, "*.dll"));
+                var assemblies = Directory.EnumerateFiles(bepinCoreDir, "*.dll").Concat(Directory.EnumerateFiles(managedDir, "*.dll")).Concat(Directory.EnumerateFiles(ExternalAssemblyBase, "*.dll"));
                 var count = 0;
                 foreach (var asm in assemblies)
                 {

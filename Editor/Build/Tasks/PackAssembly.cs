@@ -1,5 +1,7 @@
 
 using LibCraftopia.Unity.Editor.Build.Contexts;
+using LibCraftopia.Unity.Editor.Compilation;
+using LibCraftopia.Unity.Editor.Settings;
 using System;
 using System.IO;
 using UnityEditor.Build.Pipeline;
@@ -25,6 +27,34 @@ namespace LibCraftopia.Unity.Editor.Build.Tasks
             var setting = settingContext.Setting;
             if (setting == null) return ReturnCode.SuccessNotRun;
 
+            var code = copyDependences(setting);
+            if (code < 0) return code;
+            return copyModAssembly(setting);
+        }
+
+        private ReturnCode copyDependences(Setting setting)
+        {
+            var baseDir = ReferedAssemblies.ExternalAssemblyBase;
+            foreach (var path in Directory.EnumerateFiles(baseDir, "*.dll"))
+            {
+                try
+                {
+                    var filename = Path.GetFileName(path);
+                    var target = parameters.GetOutputFilePathForIdentifier(filename);
+                    Directory.CreateDirectory(Path.GetDirectoryName(target));
+                    File.Copy(path, target, true);
+                }
+                catch (Exception e)
+                {
+                    UnityEngine.Debug.LogError(e);
+                    return ReturnCode.Exception;
+                }
+            }
+            return ReturnCode.Success;
+        }
+
+        private ReturnCode copyModAssembly(Setting setting)
+        {
             var filename = $"{setting.ModInformation.AssemblyName}.dll";
             var path = Path.Combine(parameters.TempOutputFolder, filename);
             if (File.Exists(path))

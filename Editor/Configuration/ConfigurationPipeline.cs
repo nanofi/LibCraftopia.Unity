@@ -15,7 +15,10 @@ namespace LibCraftopia.Unity.Editor.Configuration
         public static ConfigurationPipeline CreateDefaultPipeline()
         {
             var pipeline = new ConfigurationPipeline();
+            pipeline.Add(new ExtractParameters());
+            pipeline.Add(new MakeDirectory());
             pipeline.Add(new ResolveDependence());
+            pipeline.Add(new DownloadDependences());
             pipeline.Add(new GenerateAsmdef());
             pipeline.Add(new GenerateRes());
             pipeline.Add(new GenerateBasePluginCs());
@@ -26,6 +29,8 @@ namespace LibCraftopia.Unity.Editor.Configuration
 
         public void Execute()
         {
+            Parameters.Add("Parameters", new ConfigurationParameters());
+            Parameters.Add("AssemblyDependences", new AssemblyDependences());
             foreach (var task in this)
             {
                 var taskType = task.GetType();
@@ -41,6 +46,7 @@ namespace LibCraftopia.Unity.Editor.Configuration
                 }
                 task.Invoke();
             }
+            Parameters.Clear();
         }
 
         #region IList
