@@ -1,24 +1,34 @@
+using System;
 using System.IO;
 using UnityEditor;
+using UnityEngine;
 
 namespace LibCraftopia.Unity.Editor.Elements
 {
     public static class Item
     {
-
-        private static string GetSelectedPathOrFallback()
+        [MenuItem("Assets/Create/LibCraftopia/Item", false, -10)]
+        public static void CreateNewItem()
         {
-            string path = "Assets";
-            foreach (var obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
-            {
-                path = AssetDatabase.GetAssetPath(obj);
-                if (!string.IsNullOrEmpty(path) && File.Exists(path))
-                {
-                    path = Path.GetDirectoryName(path);
-                    break;
-                }
-            }
-            return path + "/";
+            var path = ElementHelper.GetSelectedPathOrFallback();
+            var type = Type.GetType("Oc.Item.ItemData,Assembly-CSharp");
+            var newItem = ScriptableObject.CreateInstance(type);
+            var serialized = new SerializedObject(newItem);
+            serialized.Update();
+            serialized.FindProperty("status").intValue = 1;
+            serialized.FindProperty("maxStack").intValue = 99;
+            serialized.FindProperty("price").intValue = 1;
+            serialized.FindProperty("rarity").intValue = 1;
+            serialized.FindProperty("playerCraftCount").intValue = 1;
+            serialized.FindProperty("carftTimeCost").floatValue = 3;
+            serialized.ApplyModifiedProperties();
+            AssetDatabase.CreateAsset(newItem, Path.Combine(path, "NewItem.asset"));
+            AssetDatabase.SaveAssets();
+        }
+        [MenuItem("Assets/Create/LibCraftopia/Item", true, -10)]
+        public static bool ValidCreateNewItem()
+        {
+            return ElementHelper.ExistsAssembly();
         }
     }
 }

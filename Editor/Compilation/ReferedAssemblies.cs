@@ -1,3 +1,4 @@
+using LibCraftopia.Unity.Editor.Elements;
 using LibCraftopia.Unity.Editor.Settings;
 using System;
 using System.Collections;
@@ -18,9 +19,21 @@ namespace LibCraftopia.Unity.Editor.Compilation
 
         static ReferedAssemblies()
         {
-            CompilationPipeline.assemblyCompilationFinished -= OnAssembliesCompilationFinished;
-            CompilationPipeline.assemblyCompilationFinished += OnAssembliesCompilationFinished;
             ExternalAssemblyBase = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Library", "ExternalAssemblies"));
+            AssemblyReloadEvents.beforeAssemblyReload -= OnBeforeAssemblyReload;
+            AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
+            targetTime = EditorApplication.timeSinceStartup;
+            EditorApplication.update += update;
+        }
+
+        private static double targetTime;
+        private static void update()
+        {
+            if (EditorApplication.timeSinceStartup >= targetTime)
+            {
+                checkLoadAssemblies();
+                targetTime = EditorApplication.timeSinceStartup + 3.0;
+            }
         }
 
         public static IEnumerable<string> GetAssemblies(Setting setting)
@@ -43,9 +56,35 @@ namespace LibCraftopia.Unity.Editor.Compilation
             }
         }
 
-        public static void OnAssembliesCompilationFinished(string outputPath, CompilerMessage[] messages)
+        public static bool ExistsAssembly(string asm = "Assembly-CSharp")
         {
-            var targetDir = Path.GetFullPath(Path.Combine(Application.dataPath, "..", Path.GetDirectoryName(outputPath)));
+            var path = Path.Combine(Application.dataPath, "..", "Library", "ScriptAssemblies", $"{asm}.dll");
+            return File.Exists(path);
+        }
+
+        private static bool checkAssembliesLoaded()
+        {
+            return ExistsAssembly();
+        }
+
+        private static void checkLoadAssemblies()
+        {
+            if (!checkAssembliesLoaded())
+            {
+                copyExternalAssemblies();
+                EditorUtility.RequestScriptReload();
+            }
+        }
+
+        public static void OnBeforeAssemblyReload()
+        {
+            copyExternalAssemblies();
+        }
+
+        private static void copyExternalAssemblies()
+        {
+            var settings = AssetDatabase.FindAssets($"t:{typeof(Setting)}");
+            var targetDir = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Library", "ScriptAssemblies"));
             var setting = Setting.Inst;
             if (setting)
             {
