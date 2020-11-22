@@ -16,7 +16,7 @@ namespace LibCraftopia.Unity.Editor.Elements
             var serialized = new SerializedObject(newItem);
             serialized.Update();
             serialized.FindProperty("status").intValue = 1;
-            serialized.FindProperty("maxStack").intValue = 99;
+            serialized.FindProperty("maxStack").intValue = 100;
             serialized.FindProperty("price").intValue = 1;
             serialized.FindProperty("rarity").intValue = 1;
             serialized.FindProperty("playerCraftCount").intValue = 1;
