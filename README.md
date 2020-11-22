@@ -42,9 +42,9 @@ Setting used for building your mod.
 - Target Group: Build target group. MUST BE `Standalone`.
 - Output Path: The directory path to output the built contents. Either relative path from your project root or Absolute path.
 
-## Remark
+## Dependencies
 
-Currently, you may see a lot of errors like `Could not delete file '*.dll'`. Don't afraid that; these errors are ignorable.
+- Harmony (https://github.com/pardeike/Harmony): the binary assembly is included
 
 ## Changelog
 

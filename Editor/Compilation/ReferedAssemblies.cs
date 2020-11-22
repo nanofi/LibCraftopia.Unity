@@ -1,3 +1,4 @@
+using HarmonyLib;
 using LibCraftopia.Unity.Editor.Elements;
 using LibCraftopia.Unity.Editor.Settings;
 using System;
@@ -5,12 +6,40 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
 
 namespace LibCraftopia.Unity.Editor.Compilation
 {
+    [HarmonyPatch()]
+    public class PatchEditorCompilation
+    {
+        static MethodBase TargetMethod()
+        {
+            var typeScriptAssemblySettings = Type.GetType("UnityEditor.Scripting.ScriptCompilation.ScriptAssemblySettings,UnityEditor");
+            return AccessTools.Method(Type.GetType("UnityEditor.Scripting.ScriptCompilation.EditorCompilation,UnityEditor"), "DeleteUnusedAssemblies", new[] { typeScriptAssemblySettings });
+        }
+
+        static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            var insts = instructions.ToList();
+            for (int i = 0; i < 95; i++)
+            {
+                yield return insts[i];
+            }
+            yield return new CodeInstruction(OpCodes.Ldloc_1);
+            yield return new CodeInstruction(CodeInstruction.Call(typeof(ReferedAssemblies), "RemoveExternals", new[] { typeof(List<string>) }));
+            for (int i = 95; i < insts.Count; i++)
+            {
+                yield return insts[i];
+            }
+        }
+    }
+
+
     [InitializeOnLoad]
     public static class ReferedAssemblies
     {
@@ -19,11 +48,35 @@ namespace LibCraftopia.Unity.Editor.Compilation
 
         static ReferedAssemblies()
         {
+            ;
             ExternalAssemblyBase = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Library", "ExternalAssemblies"));
             AssemblyReloadEvents.beforeAssemblyReload -= OnBeforeAssemblyReload;
             AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
             targetTime = EditorApplication.timeSinceStartup;
             EditorApplication.update += update;
+            hookEditorCompilation();
+        }
+
+        private static readonly Harmony harmony = new Harmony("com.libcraftopia.unity");
+        private static void hookEditorCompilation()
+        {
+            harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
+        }
+
+        internal static void RemoveExternals(List<string> targets)
+        {
+            var setting = Setting.Inst;
+            if (setting)
+            {
+                var bepinCoreDir = Path.Combine(setting.GameRoot, "BepInEx", "core");
+                var managedDir = Path.Combine(setting.GameRoot, $"{Path.GetFileNameWithoutExtension(setting.GameExecutable)}_Data", "Managed");
+                var assemblies = Directory.EnumerateFiles(bepinCoreDir, "*.dll").Concat(Directory.EnumerateFiles(managedDir, "*.dll")).Concat(Directory.EnumerateFiles(ExternalAssemblyBase, "*.dll"));
+                foreach (var asm in assemblies)
+                {
+                    var path = $"Library/ScriptAssemblies/{Path.GetFileName(asm)}";
+                    targets.Remove(path);
+                }
+            }
         }
 
         private static double targetTime;
@@ -97,7 +150,13 @@ namespace LibCraftopia.Unity.Editor.Compilation
                     var targetPath = Path.Combine(targetDir, Path.GetFileName(asm));
                     try
                     {
-                        if (File.Exists(targetPath)) continue;
+                        if (File.Exists(targetPath))
+                        {
+                            var targetDate = File.GetLastWriteTime(targetPath);
+                            var sourceDate = File.GetLastWriteTime(asm);
+                            if (targetDate > sourceDate)
+                                continue;
+                        }
                         File.Copy(asm, targetPath, true);
                         count++;
                     }

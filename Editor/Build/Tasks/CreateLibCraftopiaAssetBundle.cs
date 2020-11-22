@@ -1,6 +1,7 @@
 using LibCraftopia.Unity.Editor.Build.Contexts;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEditor.Build.Content;
 using UnityEditor.Build.Pipeline;
@@ -34,6 +35,7 @@ namespace LibCraftopia.Unity.Editor.Build.Tasks
             {
                 var guid = kv.Key;
                 var info = kv.Value;
+                UnityEngine.Debug.Log($"{guid}");
                 var path = AssetDatabase.GUIDToAssetPath(guid.ToString());
                 if(!string.IsNullOrEmpty(path))
                 {
@@ -69,6 +71,9 @@ namespace LibCraftopia.Unity.Editor.Build.Tasks
 
         private bool IsTargetAsset(string path, Type type)
         {
+            var settingPath = AssetDatabase.GetAssetPath(settingContext.Setting);
+            var baseDir = Path.GetDirectoryName(settingPath);
+            UnityEngine.Debug.Log($"{path} {baseDir}");
             return false;
         }
     }
