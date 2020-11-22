@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/nanofi/LibCraftopia.Unity/compare/v0.1.3...v0.1.4) (2020-11-22)
+
+
+### Bug Fixes
+
+* prevent to remove the dll files copied by this package ([09d7030](https://github.com/nanofi/LibCraftopia.Unity/commit/09d7030c34e84f13843a3860f271844025c032ca))
+* stabilize loading of the refered assemblies to be accesible from the editor UI ([a4e01f1](https://github.com/nanofi/LibCraftopia.Unity/commit/a4e01f1d9182a8d0416f429178370b6e84211a1c))
+
 ### [0.1.3](https://github.com/nanofi/LibCraftopia.Unity/compare/v0.1.2...v0.1.3) (2020-10-21)
 
 
