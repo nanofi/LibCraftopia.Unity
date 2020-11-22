@@ -35,6 +35,7 @@ namespace LibCraftopia.Unity.Editor.Build
             tasks.Add(new CalculateCustomDependencyData());
             tasks.Add(new CalculateAssetDependencyData());
             tasks.Add(new StripUnusedSpriteSources());
+            tasks.Add(new CreateLibCraftopiaAssetBundle());
             tasks.Add(new PostDependencyCallback());
 
             // Packing
@@ -56,7 +57,8 @@ namespace LibCraftopia.Unity.Editor.Build
             return tasks;
         }
 
-        public static void Build(Setting setting) {
+        public static void Build(Setting setting)
+        {
             if (setting == null) return;
 
             var path = setting.BuildInfo.OutputPath;
@@ -76,7 +78,7 @@ namespace LibCraftopia.Unity.Editor.Build
             var tasks = BuildPipeline.CreatPipeline();
 
             var code = ContentPipeline.BuildAssetBundles(buildParam, buildContent, out var result, tasks, settingContext);
-            if(code < 0)
+            if (code < 0)
             {
                 UnityEngine.Debug.LogError("Build failed");
             }
